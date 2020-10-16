@@ -1,0 +1,41 @@
+Alarm System Web Monitor
+========================
+
+A simple read-only display of current alarms, similar to the Phoebus alarm table view.
+
+Building
+--------
+
+    export ANT_HOME=/path/to/apache-ant
+    export CATALINA_HOME=/path/to/apache-tomcat
+    export JAVA_HOME=/path/to/jdk8_or_higher
+    export PATH=$ANT_HOME/bin:$JAVA_HOME/bin:$PATH
+    
+    ant clean war
+
+Running under Tomcat
+--------------------
+
+Set the following environment variables, for example in $CATALINA_HOME/bin/setenv.sh or tomcat.conf, depending on version and setip:
+
+ * `ALARM_SERVER`: Kafka server host and port, defaults to `localhost:9092`.
+ * `ALARM_CONFIG`: Alarm configuration root, defaults to `Accelerator`.
+
+
+Place `alarm-webmon.war` in `$CATALINA_HOME/webapps`.
+When tomcat start it, the console will show something like this to
+verify the settings and successful connection to Kafka.
+
+    INFO: ===========================================
+    INFO: Alarm Webmon /alarm-webmon started
+    INFO: ALARM_SERVER=localhost:9092
+    INFO: ALARM_CONFIG=Accelerator
+    INFO: ===========================================
+    INFO: Reading from start of 'Accelerator'
+
+
+Client URLs
+-----------
+
+`http://the_tomcat_host:8080/alarm-webmon` displays the alarm table,
+updating at some slow, fixed period.
