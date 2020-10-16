@@ -1,0 +1,77 @@
+body
+{
+    background-color: white;
+    font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+    font-variant: normal;
+    font-style: normal;
+    color: black;
+}
+
+#title
+{
+    background: #007070;
+    color: white;
+    margin: 0 0 10px 0;
+    padding: 5px;
+}
+
+#status
+{
+	position: absolute;
+	bottom: 0px;
+	font-style: italic;
+}
+
+.OK
+{
+	color: rgb(  0, 100,   0);
+}
+
+.MINOR_ACK
+{
+	color: rgb(120,  90,  10);
+}
+
+.MAJOR_ACK
+{	
+    color: rgb(100,   0,   0); 
+}
+
+.INVALID_ACK
+{
+    color: rgb(100,  50, 100);	
+}
+
+.UNDEFINED_ACK
+{
+    color: rgb(100,  50, 100);
+}
+
+.MINOR
+{
+    color: rgb(207, 192,   0);
+}
+.MAJOR
+{
+    color: rgb(255,   0,   0);
+}
+
+.INVALID
+{
+    color: rgb(255,   0, 255);
+}
+
+.UNDEFINED
+{
+    color: rgb(255,   0, 255);
+}
+
+th
+{
+    background: #CCC;
+}
+
+tr:nth-child(even)
+{
+	background: #EEE;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Alarms Web Monitor</title>
+<link rel="stylesheet" type="text/css" href="css/alarms.css">
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="js/sorttable.js"></script>
+<script type="text/javascript" src="js/alarms.js"></script>
+
+</head>
+<body>
+
+<h1 id="title">Alarm System Web Monitor</h1>
+
+<h2>Archive Alarms</h2>
+
+<table id="active" class="sortable">
+  <thead>
+    <tr>
+      <th></th>
+      <th>PV</th>
+      <th>Description</th>
+      <th>Alarm Severity</th>
+      <th>Alarm Status</th>
+      <th>Alarm Time</th>
+      <th>Alarm Value</th>
+      <th>PV Severity</th>
+      <th>PV Status</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<h2>Acknowledged Alarms</h2>
+
+<table id="acknowledged" class="sortable">
+  <thead>
+    <tr>
+      <th></th>
+      <th>PV</th>
+      <th>Description</th>
+      <th>Alarm Severity</th>
+      <th>Alarm Status</th>
+      <th>Alarm Time</th>
+      <th>Alarm Value</th>
+      <th>PV Severity</th>
+      <th>PV Status</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<div id="status"></div>
+
+<script>
+jQuery(() =>
+{
+    alarms.update();
+    setInterval(() => alarms.update(), 15*1000);
+});
+</script>
+
+</body>
+</html>
