@@ -39,3 +39,5 @@ Client URLs
 
 `http://the_tomcat_host:8080/alarm-webmon` displays the alarm table,
 updating at some slow, fixed period.
+
+![Alarm Webmon](webmon.png)
