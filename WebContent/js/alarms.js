@@ -19,14 +19,24 @@ class Alarms
 
     showError(text)
     {
-        jQuery("html").html(text);
+        jQuery("#status").text(text).addClass("UNDEFINED");
+
     }
  
     showStatus(text)
     {
-        jQuery("#status").text(text);
+        jQuery("#status").text(text).removeClass("UNDEFINED");
     }
  
+    now()
+    {
+        let d = new Date();
+        var datestring = d.getFullYear()+ "-" + ("0"+(d.getMonth()+1)).slice(-2)  + "-" +  ("0" + d.getDate()).slice(-2)
+                         + " "
+                         + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+        return datestring;
+    }
+    
     update()
     {
         console.log("Updating....");
@@ -36,19 +46,15 @@ class Alarms
                        // console.log(data);
                        this.showAlarms(data.active, "active");
                        this.showAlarms(data.acknowledged, "acknowledged");
-                       
-                       let d = new Date();
-                       var datestring = d.getFullYear()+ "-" + ("0"+(d.getMonth()+1)).slice(-2)  + "-" +  ("0" + d.getDate()).slice(-2)
-                                        + " "
-                                        + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-
-                       this.showStatus("Last update: " + datestring);
+                       this.showStatus("Last update: " + this.now());
                    })
               .fail((xhr, status, error) =>
                     {
                        console.log("Error:");
                        console.log(xhr);
-                       this.showError(xhr.responseText);
+                       console.log(status);
+                       console.log(error);
+                       this.showError("Failed to fetch update: " + this.now());
                     });    
     }
     
