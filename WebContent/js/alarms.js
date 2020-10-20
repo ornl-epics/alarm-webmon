@@ -65,28 +65,34 @@ class Alarms
         body.html("");
         
         // Show new data
-        for (const pv of data)
+        if (data === undefined  ||   data.length <= 0)
         {
-            let row = jQuery("<tr>");
-            let icon = AlarmIcons[pv.severity];
-            
-            if (icon === undefined)
-                row.append(jQuery("<td>"));
-            else
-                row.append(jQuery("<td>").append(jQuery("<img>").attr("src", icon)));
-            row.append(jQuery("<td>").text(pv.name));
-            row.append(jQuery("<td>").text(pv.description));
-            row.append(jQuery("<td>").addClass(pv.severity).text(pv.severity));
-            row.append(jQuery("<td>").text(pv.message));
-            row.append(jQuery("<td>").text(pv.time));
-            row.append(jQuery("<td>").text(pv.value));
-
-            
-            
-            row.append(jQuery("<td>").addClass(pv.current_severity).text(pv.current_severity));
-            row.append(jQuery("<td>").text(pv.current_message));
-            body.append(row);
+            let info = jQuery("<td>").attr("colspan", 9).attr("align", "center").text("- There are no " + which + " alarms -");
+            body.html( jQuery("<tr>").append(info) );  
         }
+        else
+            for (const pv of data)
+            {
+                let row = jQuery("<tr>");
+                let icon = AlarmIcons[pv.severity];
+                
+                if (icon === undefined)
+                    row.append(jQuery("<td>"));
+                else
+                    row.append(jQuery("<td>").append(jQuery("<img>").attr("src", icon)));
+                row.append(jQuery("<td>").text(pv.name));
+                row.append(jQuery("<td>").text(pv.description));
+                row.append(jQuery("<td>").addClass(pv.severity).text(pv.severity));
+                row.append(jQuery("<td>").text(pv.message));
+                row.append(jQuery("<td>").text(pv.time));
+                row.append(jQuery("<td>").text(pv.value));
+    
+                
+                
+                row.append(jQuery("<td>").addClass(pv.current_severity).text(pv.current_severity));
+                row.append(jQuery("<td>").text(pv.current_message));
+                body.append(row);
+            }
 
         // Check if rows needs to be sorted
         let headers = jQuery("#" + which + " thead").find("th");
