@@ -44,8 +44,8 @@ class Alarms
         jQuery.get("alarms", data =>
                    {
                        // console.log(data);
-                       this.showAlarms(data.active, "active");
-                       this.showAlarms(data.acknowledged, "acknowledged");
+                       this.showAlarms(data.active, "active", jQuery("#active_count"));
+                       this.showAlarms(data.acknowledged, "acknowledged", jQuery("#acknowledged_count"));
                        this.showStatus("Last update: " + this.now());
                    })
               .fail((xhr, status, error) =>
@@ -58,7 +58,7 @@ class Alarms
                     });    
     }
     
-    showAlarms(data, which)
+    showAlarms(data, which, counter)
     {
         // Remove old data
         let body = jQuery("#" + which + " tbody");
@@ -67,10 +67,13 @@ class Alarms
         // Show new data
         if (data === undefined  ||   data.length <= 0)
         {
+            counter.text("");
             let info = jQuery("<td>").attr("colspan", 9).attr("align", "center").text("- There are no " + which + " alarms -");
             body.html( jQuery("<tr>").append(info) );  
         }
         else
+        {
+            counter.text("(" + data.length + ")");
             for (const pv of data)
             {
                 let row = jQuery("<tr>");
@@ -93,6 +96,7 @@ class Alarms
                 row.append(jQuery("<td>").text(pv.current_message));
                 body.append(row);
             }
+        }
 
         // Check if rows needs to be sorted
         let headers = jQuery("#" + which + " thead").find("th");
