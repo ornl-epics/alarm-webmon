@@ -6,12 +6,13 @@ A simple read-only display of current alarms, similar to the Phoebus alarm table
 Building
 --------
 
-    export ANT_HOME=/path/to/apache-ant
-    export CATALINA_HOME=/path/to/apache-tomcat
-    export JAVA_HOME=/path/to/jdk8_or_higher
-    export PATH=$ANT_HOME/bin:$JAVA_HOME/bin:$PATH
-    
-    ant clean war
+Build with Maven:
+
+   mvn clean package
+
+
+Develop in Eclipse via File, Import, Maven, Existing Maven Projects.
+
 
 Running under Tomcat
 --------------------

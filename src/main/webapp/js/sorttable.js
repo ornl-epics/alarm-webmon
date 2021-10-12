@@ -13,10 +13,76 @@
   Thanks to many, many people for contributions and suggestions.
   Licenced as X11: http://www.kryogenix.org/code/browser/licence.html
   This basically means: do what you want with it.
+  
+  
+  2021-05-15: Added sort_natural
 */
 
 
 var stIsIE = /*@cc_on!@*/false;
+
+// Used by sort_natural
+let charCodeZero = "0".charCodeAt(0);
+let charCodeNine = "9".charCodeAt(0);
+function isDigit(code)
+{
+    return code >= charCodeZero  &&  code <= charCodeNine;
+}
+
+/*  'Natural' comparator for text with numbers
+ *
+ *  <p>A plain string comparator will sort "Sys10:V" before "Sys1:V"
+ *  because '0' is less than ':' in the ASCII table.
+ *  A human on the other hand might prefer to sort "Sys1:V" before "Sys10:V"
+ *  because 1 is smaller than 10.
+ *
+ *  <p>This comparator switches to a numeric comparison
+ *  when locating a number in the string.
+ *
+ *  <p>Based on Olivier Oudot example in
+ *  https://stackoverflow.com/questions/104599/sort-on-a-string-that-may-contain-a-number
+ */
+function sort_natural(s1, s2)
+{
+    // Skip all identical characters
+    let len1 = s1.length;
+    let len2 = s2.length;
+    let i = 0;
+    let c1 = 0, c2 = 0;
+    while ((i < len1) &&
+           (i < len2) &&
+           (c1 = s1.charCodeAt(i)) == (c2 = s2.charCodeAt(i)))
+         ++i;
+
+    // Check end of string
+    if (c1 == c2)
+       return len1 - len2;
+
+    // Check digit in first string
+    if (isDigit(c1))
+    {
+       // Check digit only in first string
+       if (!isDigit(c2))
+          return 1;
+
+       // Scan all integer digits
+       let x1 = i + 1;
+       while ((x1 < len1) && isDigit(s1.charCodeAt(x1)))
+           ++x1;
+       let x2 = i + 1;
+       while ((x2 < len2) && isDigit(s2.charCodeAt(x2)))
+           ++x2;
+
+       // Longer integer wins, first digit otherwise
+       return x2 == x1 ? c1 - c2 : x1 - x2;
+    }
+
+    // Check digit only in second string
+    if (isDigit(c2))
+       return -1;
+     // No digits
+    return c1 - c2;   
+}
 
 sorttable = {
   init: function() {
@@ -169,7 +235,7 @@ sorttable = {
     for (var i=0; i<table.tBodies[0].rows.length; i++) {
       text = sorttable.getInnerText(table.tBodies[0].rows[i].cells[column]);
       if (text != '') {
-        if (text.match(/^-?[£$¤]?[\d,.]+%?$/)) {
+        if (text.match(/^-?[Â£$Â¤]?[\d,.]+%?$/)) {
           return sorttable.sort_numeric;
         }
         // check for a date: dd/mm/yyyy or dd/mm/yy
@@ -266,9 +332,11 @@ sorttable = {
     return aa-bb;
   },
   sort_alpha: function(a,b) {
-    if (a[0]==b[0]) return 0;
-    if (a[0]<b[0]) return -1;
-    return 1;
+    // Always use natural sort for text
+    return sort_natural(a[0], b[0]);
+    // if (a[0]==b[0]) return 0;
+    // if (a[0]<b[0]) return -1;
+    // return 1;
   },
   sort_ddmm: function(a,b) {
     mtch = a[0].match(sorttable.DATE_RE);
