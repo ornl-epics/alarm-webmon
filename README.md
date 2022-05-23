@@ -17,7 +17,7 @@ Develop in Eclipse via File, Import, Maven, Existing Maven Projects.
 Running under Tomcat
 --------------------
 
-Set the following environment variables, for example in `$CATALINA_HOME/bin/setenv.sh` or `tomcat.conf`, depending on version and installation details:
+Set the following environment variables, for example in `$CATALINA_HOME/bin/setenv.sh`, `catalina.sh` or `tomcat.conf`, depending on version and installation details:
 
  * `ALARM_SERVER`: Kafka server host and port, defaults to `localhost:9092`.
  * `ALARM_CONFIG`: Alarm configuration root, defaults to `Accelerator`.
