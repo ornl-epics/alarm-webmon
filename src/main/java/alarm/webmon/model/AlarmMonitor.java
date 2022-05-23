@@ -207,7 +207,7 @@ public class AlarmMonitor
         else if (record.key().startsWith(STATE_PREFIX))
         {
             path = record.key().substring(STATE_PREFIX.length());
-            JsonNode jn = json.get("severity");
+            JsonNode jn = json == null ? null : json.get("severity");
             if (jn != null)
             {
                 final SeverityLevel severity = SeverityLevel.valueOf(jn.asText());
