@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+    alarm-webmon:
+        build:
+            context: docker
+            args:
+                GIT_TAG: ${GIT_TAG}
+                PORT_NUMBER: ${PORT_NUMBER}
+        image: alarm-webmon:${DOCKER_TAG}
+        container_name: alarm-webmon 
+        ports:
+            - ${PORT_NUMBER}:${PORT_NUMBER}
+        healthcheck:
+            test: curl http://localhost:${PORT_NUMBER}/alarm-webmon
+            timeout: "5s"
+            retries: 10

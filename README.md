@@ -13,6 +13,14 @@ Build with Maven:
 
 Develop in Eclipse via File, Import, Maven, Existing Maven Projects.
 
+**Docker**
+
+Edit .env file with settings for git version and port number and docker/setenv.sh with your local site settings for the alarm server. Then:
+
+```
+docker-compose build
+```
+
 
 Running under Tomcat
 --------------------
@@ -32,6 +40,19 @@ verify the settings and successful connection to Kafka.
     INFO: ALARM_CONFIG=Accelerator
     INFO: ===========================================
     INFO: Reading from start of 'Accelerator'
+
+**Docker**
+
+To run docker container (use -d option to run in detached mode):
+
+```
+docker-compose up
+```
+
+The status can be seen with docker ps. The status will be healthy if alarm-webmon webpage is reachable at the specified `${PORT_NUMBER}`
+```
+docker ps
+```
 
 
 Client URLs
