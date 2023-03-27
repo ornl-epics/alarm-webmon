@@ -3,6 +3,8 @@ Alarm System Web Monitor
 
 A simple read-only display of current alarms, similar to the Phoebus alarm table view.
 
+For a related web tool to check the alarm configuration, see https://github.com/ornl-epics/alarm-config-display
+
 Building
 --------
 
