@@ -10,8 +10,7 @@ Building
 
 Build with Maven:
 
-   mvn clean package
-
+    mvn clean package
 
 Develop in Eclipse via File, Import, Maven, Existing Maven Projects.
 
@@ -19,10 +18,7 @@ Develop in Eclipse via File, Import, Maven, Existing Maven Projects.
 
 Edit .env file with settings for git version and port number and docker/setenv.sh with your local site settings for the alarm server. Then:
 
-```
-docker-compose build
-```
-
+    docker-compose build
 
 Running under Tomcat
 --------------------
